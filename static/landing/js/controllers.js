@@ -60,20 +60,24 @@ angular.module('formAttendee', [])
     	$scope.attendee.event = event.id;
     	//attendee.event = event.id;
     	$http.post('http://events-drf.herokuapp.com/api/attendees/', $scope.attendee)
-            .success(function(data) {
-            	console.log(data);
-            	$scope.is_sending_register = false;
-            	$scope.finish_sending = true;
-            	$scope.result_register = data.result;
-            	$scope.result_error_msg = data.error_msg;
-            	$scope.attendee = data;
-            }).
-            error(function(data, status, headers, config) {
-                console.log(data);
-                console.log(status);
-                console.log(headers);
-                console.log(config);
-            });
+        .success(function(data) {
+        	console.log(data);
+        	$scope.is_sending_register = false;
+        	$scope.finish_sending = true;
+        	$scope.result_register = data.result;
+        	$scope.result_error_msg = data.error_msg;
+        	$scope.attendee = data;
+        }).
+        error(function(data, status, headers, config) {
+        	$scope.is_sending_register = false;
+        	$scope.finish_sending = true;
+        	$scope.result_register = false;
+        	$scope.result_error_msg = data;
+            console.log(data);
+            console.log(status);
+            console.log(headers);
+            console.log(config);
+        });
     }
 	$scope.reset = function() {
 		$scope.attendee = angular.copy($scope.master);
